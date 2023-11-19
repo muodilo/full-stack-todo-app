@@ -47,6 +47,39 @@ const register = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc login
+//@route POST /api/users/login
+//@access Public
+
+const login = asyncHandler(async (req, res) => {
+  const {email,password} = req.body
+  //check if user exist
+  if (!email || !password) {
+    res.status(400)
+    throw new Error('you must include all fields')
+  }
+
+  try {
+    const user = await User.findOne({ email })
+    if (user && await bcrypt.compare(password, user.password)) {
+      res.status(200).json({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        token:generateToken(user._id)
+      })
+    } else {
+      res.status(401)
+      throw new Error('Invalid credentials')
+    }
+  } catch (error) {
+    res.status(401)
+    throw new Error(error.message)
+  }
+
+
+})
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn:'30d'
@@ -54,5 +87,6 @@ const generateToken = (id) => {
 }
 
 module.exports = {
-  register
+  register,
+  login
 }
