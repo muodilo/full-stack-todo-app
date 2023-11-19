@@ -7,6 +7,10 @@ const initialState = {
   isError:false
 }
 
+//register a user
+export const register = createAsyncThunk('auth/register' ,async(userData,thunkAPI) => {
+  console.log(userData)
+})
 
 const authSlice = createSlice({
   name: 'auth',
