@@ -13,4 +13,14 @@ box-sizing: border-box;
   margin: auto;
   box-shadow: 2px 5px 10px;
 }
+@media (min-width: 577px) {
+  .register {
+    width: 80%;
+  }
+}
+@media (min-width: 767px) {
+  .register {
+    width: 600px;
+  }
+}
 
