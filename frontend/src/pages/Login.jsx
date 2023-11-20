@@ -2,30 +2,29 @@ import React, { useState,useEffect } from 'react'
 import {toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {register,reset} from '../features/auth/authSlice'
+import {login,reset} from '../features/auth/authSlice'
 
-function Register() {
+function Login() {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: '',
-    password2:'',
   })
-  const { name, email, password, password2 } = formData
+  const { email, password } = formData
   const {user,isLoading,isSuccess,isError,message} = useSelector(state=>state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     if (user || isSuccess) {
-      navigate('/')
+      navigate('/');
     }
     if (isError) {
-      toast.error(message)
+      toast.error(message);
     }
-    dispatch(reset())
-  },[user,isSuccess,isError,message])
-
+    return () => {
+      dispatch(reset());
+    };
+  }, [user, isSuccess, isError, message, navigate, dispatch]); 
 
   const onChange = (e) => {
     setFormData(prev => ({
@@ -36,35 +35,25 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    if (password === password2) {
-      const userData = {
-        name,
-        email,
-        password
-      }
-      dispatch(register(userData))
-    } else {
-      toast.error('Password do not match');
+
+    const userData = {
+      email,
+      password
     }
+
+    dispatch(login(userData))
+
   }
   return (
     <div className='container-fluid main-form '>
       <div className="register p-3 rounded bg-body-secondary">
         <section className="header text-center pb-4">
-          <h1>Register</h1>
+          <h1>Login</h1>
           <hr />
         </section>
         <div className="form p-3 rounded">
           <form onSubmit={onSubmit}>
-            <input
-              type="text"
-              className="form-control mb-3"
-              placeholder='Enter your name'
-              name='name'
-              value={name}
-              onChange={onChange}
-              required
-            />
+
             <input
               type="email"
               className="form-control mb-3"
@@ -84,16 +73,7 @@ function Register() {
               required
               autoComplete='true'
             />
-            <input
-              type="password"
-              className="form-control mb-3"
-              placeholder='Confirm password'
-              name='password2'
-              value={password2}
-              onChange={onChange}
-              required
-              autoComplete='true'
-            />
+
             <button type="submit" className='btn btn-primary w-100'>Submit</button>
           </form>
         </div>
@@ -102,4 +82,4 @@ function Register() {
   )
 }
 
-export default Register
+export default Login

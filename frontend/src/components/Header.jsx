@@ -59,10 +59,10 @@ function Header() {
                 </Nav.Link>
 
                 {user ?
-                  <button className='btn btn-light'
+                  <button className='btn btn-light ms-2 mb-2'
                   onClick={handleClick}
                   >
-                    Logout
+                    Logout : {user.name}
                   </button> :
                   <>
                     
