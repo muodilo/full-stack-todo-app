@@ -34,21 +34,21 @@ function Header() {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                Offcanvas
+              Todo App
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link as={NavLink} to="/" activeClassName="active" className="btn btn-light" onClick={handleNavItemClick}>
+                <Nav.Link as={NavLink} to="/" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   Home
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/my-todos" activeClassName="active" className="btn btn-light" onClick={handleNavItemClick}>
+                <Nav.Link as={NavLink} to="/my-todos" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   My Todos
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/sign-in" activeClassName="active" className="btn btn-light" onClick={handleNavItemClick}>
+                <Nav.Link as={NavLink} to="/sign-in" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   Login
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/sign-up" activeClassName="active" className="btn btn-light" onClick={handleNavItemClick}>
+                <Nav.Link as={NavLink} to="/sign-up" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   Register
                 </Nav.Link>
               </Nav>

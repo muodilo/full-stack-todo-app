@@ -3,8 +3,17 @@ margin: 0;
 padding:0;
 box-sizing: border-box;
 }
+.active{
+  color: #7D7C7C;
+}
 
+.main{
+  background-color: #7D7C7C;
+  height: 90vh;
+  display: flex;
+}
 .main-form{
+  background-color: #7D7C7C;
   height: 90vh;
   display: flex;
 }
@@ -12,6 +21,9 @@ box-sizing: border-box;
   width: 450px;
   margin: auto;
   box-shadow: 2px 5px 10px;
+}
+.form{
+  background-color: #7d7c7cb9;
 }
 @media (min-width: 577px) {
   .register {

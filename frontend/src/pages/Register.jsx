@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {toast } from 'react-toastify';
-import {useSelector,useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 import {register} from '../features/auth/authSlice'
 
 function Register() {
@@ -11,7 +12,10 @@ function Register() {
     password2:'',
   })
   const { name, email, password, password2 } = formData
+  const {user,isLoading,isSuccess,isError} = useSelector(state=>state.auth)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
 
   const onChange = (e) => {
     setFormData(prev => ({
@@ -35,13 +39,13 @@ function Register() {
   }
   
   return (
-    <div className='container-fluid main-form bg-body-secondary'>
-      <div className="register p-3 rounded">
+    <div className='container-fluid main-form '>
+      <div className="register p-3 rounded bg-body-secondary">
         <section className="header text-center pb-4">
           <h1>Register</h1>
           <hr />
         </section>
-        <div className="form">
+        <div className="form p-3 rounded">
           <form onSubmit={onSubmit}>
             <input
               type="text"
@@ -50,6 +54,7 @@ function Register() {
               name='name'
               value={name}
               onChange={onChange}
+              required
             />
             <input
               type="email"
@@ -58,6 +63,7 @@ function Register() {
               name='email'
               value={email}
               onChange={onChange}
+              required
             />
             <input
               type="password"
@@ -66,6 +72,8 @@ function Register() {
               name='password'
               value={password}
               onChange={onChange}
+              required
+              autoComplete='true'
             />
             <input
               type="password"
@@ -74,6 +82,8 @@ function Register() {
               name='password2'
               value={password2}
               onChange={onChange}
+              required
+              autoComplete='true'
             />
             <button type="submit" className='btn btn-primary w-100'>Submit</button>
           </form>
