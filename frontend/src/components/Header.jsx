@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {useNavigate} from 'react-router-dom'
+import {logout,reset} from '../features/auth/authSlice'
 
 function Header() {
   const expand = 'md';
@@ -16,6 +19,15 @@ function Header() {
   const handleNavItemClick = () => {
     setShowOffcanvas(false); // Close the Offcanvas when a navigation link is clicked
   };
+
+  const { user } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    dispatch(logout())
+    navigate('/')
+  }
 
   return (
     <>
@@ -45,12 +57,25 @@ function Header() {
                 <Nav.Link as={NavLink} to="/my-todos" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   My Todos
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/sign-in" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
+
+                {user ?
+                  <button className='btn btn-light'
+                  onClick={handleClick}
+                  >
+                    Logout
+                  </button> :
+                  <>
+                    
+                  <Nav.Link as={NavLink} to="/sign-in" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   Login
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/sign-up" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   Register
                 </Nav.Link>
+                  </>
+                }
+
+
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

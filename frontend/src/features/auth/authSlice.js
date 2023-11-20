@@ -24,6 +24,11 @@ export const register = createAsyncThunk('auth/register' ,async(userData,thunkAP
   }
 })
 
+//logout
+export const logout = createAsyncThunk('auth/logout', async () => {
+  await authService.logout()
+})
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -51,7 +56,11 @@ const authSlice = createSlice({
         state.message = action.payload
         action.user = null
       })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null
+      })
   }
 })
 
+export const {reset} = authSlice.actions
 export default authSlice.reducer
