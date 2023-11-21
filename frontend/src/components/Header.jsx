@@ -21,6 +21,7 @@ function Header() {
   };
 
   const { user } = useSelector(state => state.auth)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -62,7 +63,7 @@ function Header() {
                   <button className='btn btn-light ms-2 mb-2'
                   onClick={handleClick}
                   >
-                    Logout : {user.name}
+                    Logout : {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
                   </button> :
                   <>
                     

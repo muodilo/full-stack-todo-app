@@ -16,7 +16,7 @@ function Login() {
 
   useEffect(() => {
     if (user || isSuccess) {
-      navigate('/');
+      navigate('/my-todos');
     }
     if (isError) {
       toast.error(message);

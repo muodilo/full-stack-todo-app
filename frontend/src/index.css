@@ -9,7 +9,7 @@ box-sizing: border-box;
 
 .main{
   background-color: #7D7C7C;
-  height: 90vh;
+  min-height: 92vh;
   display: flex;
 }
 .main-form{
