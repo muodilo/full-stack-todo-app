@@ -32,8 +32,16 @@ const createTodo = asyncHandler(async (req, res) => {
     throw new Error('you must add text')
   }
 
-  const user = User.findById(req.user._id)
-  res.status(200).json({message:'create todo'})
+  const user = await User.findById(req.user._id)
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+  const todo =await Todo.create({
+    text,
+    user:req.user._id
+  })
+  res.status(201).json(todo)
 })
 
 
