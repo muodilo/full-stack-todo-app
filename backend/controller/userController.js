@@ -86,7 +86,7 @@ const login = asyncHandler(async (req, res) => {
 //@route POST /api/users/me
 //@access Private
 const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json({name:'odilo'})
+  res.status(200).json({id:req.user.id})
 })
 
 const generateToken = (id) => {
