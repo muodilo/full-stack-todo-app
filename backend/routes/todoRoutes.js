@@ -7,4 +7,4 @@ const {getTodos,createTodo,deleteTodo,updateTodo} = require('../controller/todoC
 router.route('/').get(protect, getTodos).post(protect, createTodo)
 router.route('/:id').delete(protect,deleteTodo).put(protect,updateTodo)
 
-module.exports = router
+module.exports = router 
