@@ -18,7 +18,9 @@ function App() {
         <Route path='/' element={ <Home/>} />
         <Route path='/sign-up' element={ <Register/>} />
         <Route path='/sign-in' element={<Login />} />
-        <Route path='/my-todos' element={<MyTodos/> } />
+          <Route path='/my-todos' element={<PrivateRoute />}>
+          <Route path='/my-todos' element={<MyTodos/> } />
+          </Route>
       </Routes>
       <ToastContainer/>
     </Router>
