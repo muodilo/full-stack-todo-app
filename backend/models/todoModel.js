@@ -3,12 +3,12 @@ const mongoose = require('mongoose')
 
 const todoSchema = mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.objectID,
+    type: mongoose.Schema.Types.ObjectID,
     required: true,
     ref:'User'
   },
   text: {
-    type: '',
+    type:String,
     required:true
   }
 }, {
