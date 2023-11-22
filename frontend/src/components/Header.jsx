@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import {logout,reset} from '../features/auth/authSlice'
 
 function Header() {
-  const expand = 'md';
+  const expand = 'sm';
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const handleToggleOffcanvas = () => {
@@ -26,8 +26,10 @@ function Header() {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    dispatch(logout())
-    navigate('/')
+    if (window.confirm(`Are you sure you want to logout ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`)) { 
+      dispatch(logout())
+      navigate('/')
+    }
   }
 
   return (
