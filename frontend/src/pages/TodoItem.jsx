@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { FaEdit } from "react-icons/fa";
 import { deleteTodo,fetchTodos ,reset} from '../features/todos/todoSlice';
 import {useDispatch} from 'react-redux'
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch()
   const id = todo._id
+  const [isEditing,setIsEditing] = useState(false)
   const handleCheckboxChange = async(e) => {
     // Access the checked property to get the current state of the checkbox
     const isChecked = e.target.checked;
@@ -28,8 +30,14 @@ const TodoItem = ({ todo }) => {
   return (
     <>
       <li className="list-group-item list-group-item-dark mb-2">
-        <input className="form-check-input me-1 " type="checkbox" value="" id="firstCheckbox" onChange={handleCheckboxChange}/>
+        <div>
+          <input className="form-check-input me-1 " type="checkbox" value="" id="firstCheckbox" onChange={handleCheckboxChange}/>
           {todo.text}
+        </div>
+        <div>
+          <FaEdit/>
+        </div>
+        
       </li>
     </>
   )

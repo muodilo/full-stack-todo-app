@@ -32,7 +32,10 @@ box-sizing: border-box;
 .container-sm{
   max-width: 800px;
 }
-
+.list-group-item{
+  display: flex;
+  justify-content: space-between;
+}
 @media (min-width: 577px) {
   .register {
     width: 80%;
