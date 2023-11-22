@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import MyTodos from './pages/MyTodos';
 import PrivateRoute from './components/PrivateRoute';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -15,13 +16,13 @@ function App() {
     <Router>
       <Header/>
       <Routes>
-        <Route path='/' element={ <Home/>} />
         <Route path='/sign-up' element={ <Register/>} />
         <Route path='/sign-in' element={<Login />} />
           <Route path='/my-todos' element={<PrivateRoute />}>
           <Route path='/my-todos' element={<MyTodos/> } />
           </Route>
       </Routes>
+      <Footer/>
       <ToastContainer/>
     </Router>
   );

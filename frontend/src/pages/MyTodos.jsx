@@ -51,8 +51,8 @@ function MyTodos() {
   // }
   
   return (
-    <div className='todo-container'>
-      <section className="title text-center w-100 pt-3">
+    <div className='todo-container pb-5'>
+      <section className="title text-center w-100 pt-3 ">
         {user?<h2 className='text-white'>Welcome {user.name.charAt(0).toUpperCase() + user.name.slice(1)} </h2>:null}
         <hr className='text-white'/>
       </section>

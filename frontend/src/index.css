@@ -2,6 +2,7 @@ body {
 margin: 0;
 padding:0;
 box-sizing: border-box;
+position: relative;
 }
 .active{
   color: #7D7C7C;
@@ -11,13 +12,16 @@ box-sizing: border-box;
   background-color: #7D7C7C;
   min-height: 92vh;
   display: flex;
+  
 }
 .main-form{
   background-color: #7D7C7C;
   height: 90vh;
   display: flex;
+  margin-top: 73px;
 }
 .todo-container{
+  margin-top: 59px;
   background-color: #7D7C7C;
   min-height: 92vh;
 }
@@ -35,6 +39,16 @@ box-sizing: border-box;
 .list-group-item{
   display: flex;
   justify-content: space-between;
+}
+.edit-btn{
+  cursor: pointer;
+}
+.footer{
+  position: absolute;
+  bottom:0;
+  left:0;
+  right: 0;
+
 }
 @media (min-width: 577px) {
   .register {

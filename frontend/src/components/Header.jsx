@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';  
 import { useSelector, useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import {logout,reset} from '../features/auth/authSlice'
@@ -28,15 +28,15 @@ function Header() {
   const handleClick = () => {
     if (window.confirm(`Are you sure you want to logout ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`)) { 
       dispatch(logout())
-      navigate('/')
+      navigate('/sign-in')
     }
   }
 
   return (
     <>
-      <Navbar expand={expand} className="bg-body-tertiary">
+      <Navbar expand={expand} className="bg-body-tertiary fixed-top">
         <Container fluid>
-          <Navbar.Brand as={NavLink} to="/" activeClassName="active">
+          <Navbar.Brand as={NavLink} to="/my-todos" activeClassName="active">
             Todo App
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleToggleOffcanvas} />
@@ -54,9 +54,7 @@ function Header() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link as={NavLink} to="/" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
-                  Home
-                </Nav.Link>
+
                 <Nav.Link as={NavLink} to="/my-todos" activeClassName="active" className="btn btn-light ms-2 mb-2" onClick={handleNavItemClick}>
                   My Todos
                 </Nav.Link>

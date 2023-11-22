@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import {toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,Link} from 'react-router-dom'
 import {register,reset} from '../features/auth/authSlice'
 
 function Register() {
@@ -51,7 +51,7 @@ function Register() {
     <div className='container-fluid main-form '>
       <div className="register p-3 rounded bg-body-secondary">
         <section className="header text-center pb-4">
-          <h1>Register</h1>
+          <h1>Sign up</h1>
           <hr />
         </section>
         <div className="form p-3 rounded">
@@ -94,8 +94,12 @@ function Register() {
               required
               autoComplete='true'
             />
-            <button type="submit" className='btn btn-primary w-100'>Submit</button>
+            <button type="submit" className='btn btn-primary w-100'>Register</button>
           </form>
+          <div className='text-center m-3'>
+            <p className='text-white'>Already have an account?  <Link to='/sign-in'>Log in</Link></p>
+            
+          </div>
         </div>
       </div>
     </div>

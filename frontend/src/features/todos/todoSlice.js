@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
+  updated:{},
   message:''
 }
 
@@ -37,6 +38,16 @@ export const deleteTodo = createAsyncThunk('todo/deleteTodo', async (id, thunkAP
   const token = thunkAPI.getState().auth.user.token
   try {
     return await todoService.deleteTodo(id,token)
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+//update todo
+export const updateTodo = createAsyncThunk('todo/updateTodo', async (id,update, thunkAPI) => {
+  const token = thunkAPI.getState().auth.user.token
+  try {
+    return await todoService.updateTodo(id, update, token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
@@ -77,6 +88,19 @@ const todoSlice = createSlice({
         state.isSuccess = true
       })
       .addCase(createTodo.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(updateTodo.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(updateTodo.fulfilled, (state,action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.updated = action.payload
+      })
+      .addCase(updateTodo.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
