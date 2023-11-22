@@ -1,13 +1,37 @@
 import React,{useEffect,useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {toast } from 'react-toastify';
-import { fetchTodos, reset } from '../features/todos/todoSlice'
+import { fetchTodos,createTodo, reset } from '../features/todos/todoSlice'
 import TodoItem from './TodoItem';
 
 function MyTodos() {
   const { todos, isLoading, isError, isSuccess, message } = useSelector(state => state.todo)
   const { user } = useSelector(state => state.auth)
   const dispatch = useDispatch()
+
+  const [text, setText] = useState('')
+
+  const onChange = (e) => {
+    setText(e.target.value)
+  }
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const data = { text };
+  
+    try {
+      await dispatch(createTodo(data));
+      // Only fetch todos and reset if createTodo is successful
+      dispatch(fetchTodos());
+      dispatch(reset());
+    } catch (error) {
+      // Handle errors, and toast.error if isError
+      if (isError) {
+        toast.error(message);
+      }
+    }
+    setText('')
+  };
+  
 
   useEffect(() => {
     return () => {
@@ -20,10 +44,11 @@ function MyTodos() {
   useEffect(() => {
     dispatch(fetchTodos())
   }, [dispatch]);
+
   
-  if (isLoading) {
-    return <h1>Loading....</h1>
-  }
+  // if (isLoading) {
+  //   return <h1>Loading....</h1>
+  // }
   
   return (
     <div className='todo-container'>
@@ -33,15 +58,15 @@ function MyTodos() {
       </section>
       <div className="container-sm bg-body-secondary rounded p-2">
         <div className="todo-form">
-          <form >
+          <form onSubmit={onSubmit}>
             <div className="input-group">
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" value={text} onChange={onChange} required/>
               <button type="submit" className='btn btn-primary'>Add</button>
             </div>
           </form>
           <ul className="list-group mt-4 todos-ul">
-          {todos.map(todo => (
-            <TodoItem key={todo.id} todo={todo} />
+          {todos.map((todo)=> (
+            <TodoItem key={todo._id} todo={todo} />
             ))}
           </ul>
         </div>

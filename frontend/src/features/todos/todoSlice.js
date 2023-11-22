@@ -10,11 +10,33 @@ const initialState = {
   message:''
 }
 
+//create todo
+export const createTodo = createAsyncThunk('todo/createTodo', async (text, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token
+    return await todoService.createTodos(text,token)
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
 
+//fetch todos
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async (_,thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
     return await todoService.fetchTodos(token)
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+
+//delete Todos
+export const deleteTodo = createAsyncThunk('todo/deleteTodo', async (id, thunkAPI) => {
+  const token = thunkAPI.getState().auth.user.token
+  try {
+    return await todoService.deleteTodo(id,token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
@@ -43,6 +65,18 @@ const todoSlice = createSlice({
         state.todos = action.payload
       })
       .addCase(fetchTodos.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(createTodo.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(createTodo.fulfilled, (state,action) => {
+        state.isLoading = false
+        state.isSuccess = true
+      })
+      .addCase(createTodo.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

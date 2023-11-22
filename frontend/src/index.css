@@ -29,6 +29,9 @@ box-sizing: border-box;
 .form{
   background-color: #7d7c7cb9;
 }
+.container-sm{
+  max-width: 800px;
+}
 
 @media (min-width: 577px) {
   .register {
